@@ -22,20 +22,31 @@ function App() {
     }
   }
 
-  // every render, rerender
+  // Syntax : useEffect(setUp,dependenciesArray)
+
+  // ### 1  After  render, rerender
   // useEffect(() => {
   //   console.log('## 1 Effect Hook - Every render, rerender');
   // });
 
-  // Syntax : useEffect(setUp,dependenciesArray)
+  // ### 2  After firstRender
+  useEffect(() => {
+    console.log('Only First Render');
+  }, []);
+
+  // ### 3 : firstRender , Rerender wih category change
   useEffect(() => {
     console.log('## 2 Effect Hook - Category - MAKE HTTP with', category);
     if (category !== '') fetchLists();
   }, [category]);
 
-  // useEffect(() => {
-  //   console.log('## 3 : Effect Hook - Count');
-  // }, [count]);
+  useEffect(() => {
+    console.log('## 3 : Effect Hook - Count');
+  }, [count]);
+
+  useEffect(() => {
+    console.log('## 4 : Effect Hook - All');
+  }, [count, category]);
 
   console.log('render, rerender');
 
