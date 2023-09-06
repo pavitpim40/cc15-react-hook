@@ -3,10 +3,24 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 // step-1 : รู้ว่า user กดปุ่มไหน ?
+// step-2 : Make HTTP Request , after setState
 
 function App() {
   const [category, setCategory] = useState('');
   const [count, setCount] = useState(0);
+
+  // DEFINE
+  // url : https://jsonplaceholder.typicode.com/<categories>
+  async function fetchLists() {
+    const BASE_URL = 'https://jsonplaceholder.typicode.com';
+    try {
+      let response = await fetch(`${BASE_URL}/${category}`, { method: 'GET' });
+      let data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // every render, rerender
   // useEffect(() => {
@@ -15,12 +29,13 @@ function App() {
 
   // Syntax : useEffect(setUp,dependenciesArray)
   useEffect(() => {
-    console.log('## 2 Effect Hook - Category');
+    console.log('## 2 Effect Hook - Category - MAKE HTTP with', category);
+    if (category !== '') fetchLists();
   }, [category]);
 
-  useEffect(() => {
-    console.log('## 3 : Effect Hook - Count');
-  }, [count]);
+  // useEffect(() => {
+  //   console.log('## 3 : Effect Hook - Count');
+  // }, [count]);
 
   console.log('render, rerender');
 
