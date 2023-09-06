@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+// step-1 : เก็บ Input จาก User => React State
+// step-2 : handle จังหวะ submit
+
 function App() {
+  const [keyword, setKeyword] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('submitted');
+  };
   return (
     <div className='App'>
       {/* Heder */}
@@ -11,10 +20,15 @@ function App() {
       </div>
 
       {/* Input */}
-      <div className='search'>
-        <input type='text' placeholder='keyword ?' />
-        <button>search</button>
-      </div>
+      <form className='search' onSubmit={handleSubmit}>
+        <input
+          type='text'
+          placeholder='keyword ?'
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+        <button type='submit'>search</button>
+      </form>
 
       {/* Result */}
       <div className='movie-lists'>
