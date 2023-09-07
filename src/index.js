@@ -41,6 +41,11 @@ function App() {
     if (category !== 'not-select') {
       fetchLists();
     }
+
+    // return CLEANUP_FN
+    return () => {
+      console.log('cleanup', category);
+    };
   }, [category]);
 
   console.log('Render, Rerender', category);
@@ -51,12 +56,13 @@ function App() {
       <div className='button__group'>
         <button onClick={() => setCategory('posts')}>posts</button>
         <button onClick={() => setCategory('users')}>users</button>
+        <button onClick={() => setCategory('todos')}>todos</button>
       </div>
 
       <ul className='lists'>
         {data.map((obj) => (
           <li className='lists__item' key={obj.id}>
-            {obj.body || obj.name}
+            {obj.body || obj.name || obj.title}
           </li>
         ))}
       </ul>
